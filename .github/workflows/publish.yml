@@ -50,6 +50,7 @@ jobs:
       #   if: ${{github.actor != 'nektos/act'}}
       #   run: vsce publish -p ${{secrets.PAT}}
 
+
   release:
     needs: publish
     runs-on: ubuntu-latest
