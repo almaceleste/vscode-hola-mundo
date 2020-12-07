@@ -20,7 +20,7 @@ jobs:
       - run: npm install
 
       - name: generate changelog
-        uses: fabernovel/github-changelog-generator-action@v1
+        uses: fabernovel/github-changelog-generator-action@master
         with:
           # You can pass any parameters from https://github.com/github-changelog-generator/github-changelog-generator/wiki/Advanced-change-log-generation-examples#additional-options
           options: --token ${{ secrets.GITHUB_TOKEN }}
