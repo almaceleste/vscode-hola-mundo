@@ -1,6 +1,6 @@
-# Desktop Entry files support
+# Hola Mundo test extension
 
-Adds support for .desktop and .directory files to the VS Code.
+Drops "Hello, World!" notification.
 
 ## Installation
 
