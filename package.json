@@ -3,6 +3,20 @@
 	"displayName": "Hola Mundo",
 	"description": "",
 	"version": "0.0.1",
+    "author": {
+        "name": "almaceleste",
+        "url": "https://almaceleste.github.io"
+    },
+	"license": "SEE LICENSE IN LICENSE",
+    "publisher": "almaceleste",
+    "icon": "icon.png",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/almaceleste/vscode-hola-mundo"
+    },
+    "bugs": {
+        "url": "https://github.com/almaceleste/vscode-hola-mundo/issues"
+    },
 	"engines": {
 		"vscode": "^1.51.0"
 	},
