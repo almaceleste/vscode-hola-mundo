@@ -1,0 +1,63 @@
+name: publish
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - v*
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    if: ${{github.ref == 'refs/heads/master'}}
+    outputs:
+      package-name: ${{steps.package-name.outputs.package_name}}
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12'
+          check-latest: true
+      - run: npm install
+      - name: install vsce
+        run: npm install -g vsce
+      - name: package an extension
+        run: vsce package
+      - name: get package name
+        id: package-name
+        run: echo "::set-output name=package_name::$(ls | grep '^.*\.vsix$' | head -1)"
+      - name: upload package
+        if: ${{github.actor != 'nektos/act'}}
+        uses: actions/upload-artifact@v2
+        with:
+            name: ${{steps.package-name.outputs.package_name}}
+            path: ${{steps.package-name.outputs.package_name}}
+      - name: publish package
+        if: ${{github.actor != 'nektos/act'}}
+        run: vsce publish -p ${{secrets.PAT}}
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: ${{github.ref == 'refs/heads/master'}}
+    env:
+      package-name: ${{needs.build.outputs.package-name}}
+    # outputs:
+    #   version: ${{steps.get-version.outputs.version}}
+    steps:
+      - name: download package
+        if: ${{github.actor != 'nektos/act'}}
+        uses: actions/download-artifact@v2
+        with:
+            name: ${{env.package-name}}
+      # - name: get version
+      #   id: get-version
+      #   run: echo ::set-output name=version::${{GITHUB_REF/refs\/tags\/v/}}
+      - name: create release
+        if: ${{github.actor != 'nektos/act'}}
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: "latest"
+          prerelease: false
+          files: ${{env.package-name}}
