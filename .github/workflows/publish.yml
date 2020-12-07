@@ -7,7 +7,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    if: ${{github.ref == 'refs/heads/master'}}
+    # if: ${{github.ref == 'refs/heads/master'}}
     outputs:
       package-name: ${{steps.package-name.outputs.package_name}}
     #   version: ${{steps.get-version.outputs.version}}
@@ -54,7 +54,7 @@ jobs:
   release:
     needs: publish
     runs-on: ubuntu-latest
-    if: ${{github.ref == 'refs/heads/master'}}
+    # if: ${{github.ref == 'refs/heads/master'}}
     env:
       package-name: ${{needs.build.outputs.package-name}}
     steps:
