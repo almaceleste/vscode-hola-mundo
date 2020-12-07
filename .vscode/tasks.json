@@ -10,17 +10,17 @@
     },
     "tasks": [
         {
-            "label": "package: build",
+            "label": "vsce: build",
             "type": "shell",
             "command": "vsce package"
         },
         {
-            "label": "package: publish",
+            "label": "vsce: publish",
             "type": "shell",
             "command": "vsce publish"
         },
         {
-            "label": "test: publish.yml",
+            "label": "act: publish.yml",
             "type": "shell",
             "command": "act -W .github/workflows/publish.yml"
         },
