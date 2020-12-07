@@ -1,0 +1,43 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "options": {
+        "env": {
+            // set env variable for docker-rootless (for testing github workflows with act)
+            "DOCKER_HOST":"unix:///run/user/1000/docker.sock"
+        }
+    },
+    "tasks": [
+        {
+            "label": "package: build",
+            "type": "shell",
+            "command": "vsce package"
+        },
+        {
+            "label": "package: publish",
+            "type": "shell",
+            "command": "vsce publish"
+        },
+        {
+            "label": "test: publish.yml",
+            "type": "shell",
+            "command": "act -W .github/workflows/publish.yml"
+        },
+        {
+            "label": "docker: start",
+            "type": "shell",
+            "command": "systemctl --user start docker.service"
+        },
+        {
+            "label": "docker: status",
+            "type": "shell",
+            "command": "systemctl --user status docker.service --no-pager --lines=0"
+        },
+        {
+            "label": "docker: stop",
+            "type": "shell",
+            "command": "systemctl --user stop docker.service"
+        }
+    ]
+}
