@@ -77,14 +77,15 @@ jobs:
       # - name: create changelog
       #   id: changelog
       #   uses: heineiuo/create-changelogs@master
-      - name: create release
-        if: ${{github.actor != 'nektos/act'}}
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          body: ${{ steps.changelog.outputs.changelogs }}
-          draft: false
-          prerelease: ${{ steps.changelogs.outputs.release_type == 'prerelease' }}
+      # - name: create release
+      #   if: ${{github.actor != 'nektos/act'}}
+      #   uses: actions/create-release@latest
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ github.ref }}
+      #     release_name: ${{ github.ref }}
+      #     # body: ${{ steps.changelog.outputs.changelogs }}
+      #     body-path: CHANGELOG.md
+      #     draft: false
+      #     # prerelease: ${{ steps.changelogs.outputs.release_type == 'prerelease' }}
