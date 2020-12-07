@@ -14,7 +14,7 @@ jobs:
       package-name: ${{steps.package-name.outputs.package_name}}
     steps:
       - uses: actions/checkout@master
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v2-beta
         with:
           node-version: '12'
           check-latest: true
