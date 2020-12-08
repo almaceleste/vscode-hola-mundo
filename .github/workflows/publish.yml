@@ -1,8 +1,10 @@
 name: publish
 on:
   push:
-    tags:
-      - v*
+    # tags:
+    #   - v*
+    branches:
+      - master
 
 jobs:
   publish:
@@ -33,34 +35,41 @@ jobs:
       #   with:
       #     version: ${{ steps.get-version.outputs.version }}
 
-      - name: install vsce
-        run: npm install -g vsce
-      - name: package an extension
-        run: vsce package
-      - name: get package name
-        id: package-name
-        run: echo "::set-output name=package_name::$(ls | grep '^.*\.vsix$' | head -1)"
-      - name: upload package
+      - name: upload changelog
         if: ${{github.actor != 'nektos/act'}}
         uses: actions/upload-artifact@v2
         with:
-            name: ${{steps.package-name.outputs.package_name}}
-            path: ${{steps.package-name.outputs.package_name}}
+            name: CHANGELOG.md
+            path: CHANGELOG.md
+
+      # - name: install vsce
+      #   run: npm install -g vsce
+      # - name: package an extension
+      #   run: vsce package
+      # - name: get package name
+      #   id: package-name
+      #   run: echo "::set-output name=package_name::$(ls | grep '^.*\.vsix$' | head -1)"
+      # - name: upload package
+      #   if: ${{github.actor != 'nektos/act'}}
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #       name: ${{steps.package-name.outputs.package_name}}
+      #       path: ${{steps.package-name.outputs.package_name}}
       # - name: publish package
       #   if: ${{github.actor != 'nektos/act'}}
       #   run: vsce publish -p ${{secrets.PAT}}
-      - name: create release
-        if: ${{github.actor != 'nektos/act'}}
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
-          # body: ${{ steps.changelog.outputs.changelogs }}
-          body-path: CHANGELOG.md
-          draft: false
-          # prerelease: ${{ steps.changelogs.outputs.release_type == 'prerelease' }}
+      # - name: create release
+      #   if: ${{github.actor != 'nektos/act'}}
+      #   uses: actions/create-release@latest
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ github.ref }}
+      #     release_name: ${{ github.ref }}
+      #     # body: ${{ steps.changelog.outputs.changelogs }}
+      #     body-path: CHANGELOG.md
+      #     draft: false
+      #     # prerelease: ${{ steps.changelogs.outputs.release_type == 'prerelease' }}
 
 
 
