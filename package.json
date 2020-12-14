@@ -1,54 +1,66 @@
 {
-	"name": "hola-mundo",
-	"displayName": "Hola Mundo",
-	"description": "",
-	"version": "0.0.1",
-    "author": {
-        "name": "almaceleste",
-        "url": "https://almaceleste.github.io"
-    },
-	"license": "SEE LICENSE IN LICENSE",
-    "publisher": "almaceleste",
-    "icon": "icon.png",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/almaceleste/vscode-hola-mundo"
-    },
-    "bugs": {
-        "url": "https://github.com/almaceleste/vscode-hola-mundo/issues"
-    },
-	"engines": {
-		"vscode": "^1.51.0"
-	},
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [
-		"onCommand:hola-mundo.helloWorld"
-	],
-	"main": "./extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "hola-mundo.helloWorld",
-				"title": "Hello World"
-			}
-		]
-	},
-	"scripts": {
-		"lint": "eslint .",
-		"pretest": "npm run lint",
-		"test": "node ./test/runTest.js"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.51.0",
-		"@types/glob": "^7.1.3",
-		"@types/mocha": "^8.0.0",
-		"@types/node": "^12.11.7",
-		"eslint": "^7.9.0",
-		"glob": "^7.1.6",
-		"mocha": "^8.1.3",
-		"typescript": "^4.0.2",
-		"vscode-test": "^1.4.0"
-	}
+  "name": "hola-mundo",
+  "displayName": "Hola Mundo",
+  "description": "Drops \"Hello, World!\" notification.",
+  "version": "0.0.1",
+  "author": "almaceleste (https://almaceleste.github.io)",
+  "license": "SEE LICENSE IN LICENSE",
+  "publisher": "almaceleste",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/almaceleste/vscode-hola-mundo.git"
+  },
+  "homepage": "https://github.com/almaceleste/vscode-hola-mundo#readme",
+  "bugs": {
+    "url": "https://github.com/almaceleste/vscode-hola-mundo/issues"
+  },
+  "engines": {
+    "vscode": "^1.51.0"
+  },
+  "main": "./extension.js",
+  "categories": [
+    "Other"
+  ],
+  "keywords": [],
+  "activationEvents": [
+    "onCommand:hola-mundo.helloWorld"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "hola-mundo.helloWorld",
+        "title": "Hello World"
+      }
+    ]
+  },
+  "dependencies": {},
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.0.0",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.51.0",
+    "conventional-changelog-cli": "^2.1.1",
+    "eslint": "^7.9.0",
+    "glob": "^7.1.6",
+    "husky": "^4.3.5",
+    "mocha": "^8.1.3",
+    "typescript": "^4.0.2",
+    "vscode-test": "^1.4.0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
 }
